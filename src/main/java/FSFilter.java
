@@ -1,0 +1,8 @@
+public class FSFilter implements Runnable
+{
+    private BlockingQueue<> queue = new ArrayBlockingQueue<25>;
+
+    public FSFilter() {}
+    
+    
+}
