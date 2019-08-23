@@ -13,7 +13,7 @@ public class FSFileFinder implements Runnable
 
     public FSFileFinder(String searchPath, FSUserInterface ui, FSFilter filter)
     {
-        this.searchPath = searchPath;
+        this.searchPath = searchPath;   
         this.ui = ui;
         this.filter = filter;
     }
@@ -29,10 +29,7 @@ public class FSFileFinder implements Runnable
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
                 {
-                    // Check whether each file contains the search term, and if
-                    // so, add it to the list.
-                    String fileStr = file.toString();
-                    filter.add(fileStr);
+                    filter.add(file.toString());
                     
                     return FileVisitResult.CONTINUE;
                 }
