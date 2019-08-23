@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - FileSearcher",
+            "request": "launch",
+            "mainClass": "FileSearcher",
+            "projectName": "filesearcher"
+        }
+    ]
+}

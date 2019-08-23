@@ -1,4 +1,4 @@
-package edu.curtin.comp3003.filesearcher;
+// package edu.curtin.comp3003.filesearcher;
 
 public class FileSearcher
 {

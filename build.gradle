@@ -11,10 +11,10 @@ compileJava {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'edu.curtin.comp3003.filesearcher.FileSearcher'
+        attributes 'Main-Class': 'FileSearcher'
     }
 }
 
 application {
-    mainClassName = 'edu.curtin.comp3003.filesearcher.FileSearcher'
+    mainClassName = 'FileSearcher'
 }

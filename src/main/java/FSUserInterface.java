@@ -1,4 +1,4 @@
-package edu.curtin.comp3003.filesearcher;
+// package edu.curtin.comp3003.filesearcher;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -51,12 +51,19 @@ public class FSUserInterface
             @Override 
             public void actionPerformed(ActionEvent e)
             {
+                FSFilter filter = new FSFilter(FSUserInterface.this, searchTermBox.getText());
+
                 FSFileFinder finder = new FSFileFinder(
                     searchPathBox.getText(), 
-                    searchTermBox.getText(), 
-                    FSUserInterface.this);
-                    
-                finder.search();
+                    FSUserInterface.this,
+                    filter
+                );
+
+                Thread filterThread = new Thread(filter, "filter");
+                Thread finderThread = new Thread(finder, "finder");
+
+                filterThread.start();
+                finderThread.start();
             }
         });
         
@@ -91,8 +98,14 @@ public class FSUserInterface
     
     public void addResult(String result)
     {
-        searchResults.addElement(result);
-        tally.setText(Integer.toString(searchResults.getSize()) + " result(s) found");
+        SwingUtilities.invokeLater(new Runnable(){
+        
+            @Override
+            public void run() {
+                searchResults.addElement(result);
+                tally.setText(Integer.toString(searchResults.getSize()) + " result(s) found");
+            }
+        });
     }
     
     public void showError(String message)

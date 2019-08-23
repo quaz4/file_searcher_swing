@@ -1,39 +1,38 @@
-package edu.curtin.comp3003.filesearcher;
+// package edu.curtin.comp3003.filesearcher;
 
 import java.io.*;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
-public class FSFileFinder
+public class FSFileFinder implements Runnable
 {
     private String searchPath;
-    private String searchTerm;
     private FSUserInterface ui;
+    
+    private FSFilter filter;
 
-    public FSFileFinder(String searchPath, String searchTerm, FSUserInterface ui)
+    public FSFileFinder(String searchPath, FSUserInterface ui, FSFilter filter)
     {
         this.searchPath = searchPath;
-        this.searchTerm = searchTerm;
         this.ui = ui;
+        this.filter = filter;
     }
     
-    public void search()
+    @Override
+    public void run()
     {
         try
         {
             // Recurse through the directory tree
             Files.walkFileTree(Paths.get(searchPath), new SimpleFileVisitor<Path>()
-            {
+            { 
                 @Override
                 public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
                 {
                     // Check whether each file contains the search term, and if
                     // so, add it to the list.
                     String fileStr = file.toString();
-                    if(fileStr.contains(searchTerm))
-                    {
-                        ui.addResult(fileStr);
-                    }
+                    filter.add(fileStr);
                     
                     return FileVisitResult.CONTINUE;
                 }
